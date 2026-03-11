@@ -4,6 +4,7 @@ import LyricsInput from './components/LyricsInput';
 import StyleSettings from './components/StyleSettings';
 import TipsCard from './components/TipsCard';
 import Footer from './components/Footer';
+import Preview from './components/Preview';
 import { usePPTGenerator } from './components/common/features/usePPTGenerator';
 
 const App: React.FC = () => {
@@ -25,14 +26,16 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-primary-900 text-white p-6 md:p-12">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <Header />
 
-        <main className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <TipsCard />
+        <main className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Left Side: Input */}
           <LyricsInput lyrics={lyrics} setLyrics={setLyrics} />
 
-          {/* Right Side: Options & Actions */}
+
+          {/* Right Side: Preview & Options */}
           <div className="space-y-6">
             <StyleSettings
               bgImage={bgImage}
@@ -47,7 +50,15 @@ const App: React.FC = () => {
               generatePPT={generatePPT}
               fileInputRef={fileInputRef}
             />
-            <TipsCard />
+            <Preview
+              lyrics={lyrics}
+              fontFace={fontFace}
+              fontSize={fontSize}
+              fontColor={fontColor}
+              bgImage={bgImage}
+            />
+
+
           </div>
         </main>
 

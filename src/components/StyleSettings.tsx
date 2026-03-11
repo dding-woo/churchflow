@@ -15,7 +15,7 @@ interface StyleSettingsProps {
   setFontColor: (value: string) => void;
   isGenerating: boolean;
   generatePPT: () => Promise<void>;
-  fileInputRef: RefObject<HTMLInputElement>;
+  fileInputRef: RefObject<HTMLInputElement | null>;
 }
 
 const StyleSettings: React.FC<StyleSettingsProps> = ({

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FONT_LIST } from '../../constants/fonts';
 
 interface FontFaceSelectProps {
     fontFace: string;
@@ -13,14 +14,11 @@ const FontFaceSelect: React.FC<FontFaceSelectProps> = ({ fontFace, setFontFace, 
             onChange={(e) => setFontFace(e.target.value)}
             className={className}
         >
-            <option value="Arial">Arial</option>
-            <option value="Times New Roman">Times New Roman</option>
-            <option value="Courier New">Courier New</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Malgun Gothic">맑은 고딕</option>
-            <option value="NanumGothic">나눔고딕</option>
-            <option value="Pretendard">Pretendard</option>
-            <option value="Ownglyph Wichylist">온글잎 위씨리스트</option>
+            {FONT_LIST.map((font) => (
+                <option key={font.value} value={font.value} style={{ fontFamily: font.value }}>
+                    {font.name}
+                </option>
+            ))}
         </select>
     </div>
 );

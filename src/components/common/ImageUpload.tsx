@@ -3,7 +3,7 @@ import React, { ChangeEvent, RefObject } from 'react';
 interface ImageUploadProps {
     bgImage: string | null;
     handleImageUpload: (e: ChangeEvent<HTMLInputElement>) => void;
-    fileInputRef: RefObject<HTMLInputElement>;
+    fileInputRef: RefObject<HTMLInputElement | null>;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
