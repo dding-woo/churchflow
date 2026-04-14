@@ -19,6 +19,10 @@ const App: React.FC = () => {
     setFontColor,
     fontFace,
     setFontFace,
+    textAlign,
+    setTextAlign,
+    verticalAlign,
+    setVerticalAlign,
     isGenerating,
     generatePPT,
     fileInputRef
@@ -46,6 +50,10 @@ const App: React.FC = () => {
               setFontSize={setFontSize}
               fontColor={fontColor}
               setFontColor={setFontColor}
+              textAlign={textAlign}
+              setTextAlign={setTextAlign}
+              verticalAlign={verticalAlign}
+              setVerticalAlign={setVerticalAlign}
               isGenerating={isGenerating}
               generatePPT={generatePPT}
               fileInputRef={fileInputRef}
@@ -55,6 +63,8 @@ const App: React.FC = () => {
               fontFace={fontFace}
               fontSize={fontSize}
               fontColor={fontColor}
+              textAlign={textAlign}
+              verticalAlign={verticalAlign}
               bgImage={bgImage}
             />
 

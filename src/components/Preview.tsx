@@ -5,15 +5,38 @@ interface PreviewProps {
     fontFace: string;
     fontSize: number;
     fontColor: string;
+    textAlign: 'left' | 'center' | 'right';
+    verticalAlign: 'top' | 'middle' | 'bottom';
     bgImage: string | null;
 }
 
-const Preview: React.FC<PreviewProps> = ({ lyrics, fontFace, fontSize, fontColor, bgImage }) => {
+const Preview: React.FC<PreviewProps> = ({ 
+    lyrics, 
+    fontFace, 
+    fontSize, 
+    fontColor, 
+    textAlign, 
+    verticalAlign, 
+    bgImage 
+}) => {
     // 첫 번째 문단(슬라이드)만 미리보기로 보여줌
     const paragraphs = lyrics.split(/\n\s*\n/).filter(p => p.trim() !== '');
     const displayText = paragraphs.length > 0
         ? paragraphs[0].split('\n').slice(0, 2).join('\n') // 최대 2줄까지만 보여줌
         : "가사를 입력하면 여기에 미리보기가 표시됩니다.";
+
+    // 정렬 맵핑
+    const vAlignMap = {
+        top: 'items-start',
+        middle: 'items-center',
+        bottom: 'items-end'
+    };
+
+    const hAlignMap = {
+        left: 'justify-start',
+        center: 'justify-center',
+        right: 'justify-end'
+    };
 
     return (
         <div className="space-y-4">
@@ -43,13 +66,13 @@ const Preview: React.FC<PreviewProps> = ({ lyrics, fontFace, fontSize, fontColor
                 {bgImage && <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>}
 
                 {/* 텍스트 컨텐츠 레이어 */}
-                <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12 text-center">
+                <div className={`absolute inset-0 flex p-12 md:p-16 ${vAlignMap[verticalAlign]} ${hAlignMap[textAlign]}`}>
                     <p
                         style={{
                             fontFamily: fontFace,
-                            // 브라우저 뷰포트에 맞게 폰트 크기 비율 조정 (PPT pt -> px 배율)
                             fontSize: `${Math.max(14, fontSize * 0.8)}px`,
                             color: fontColor,
+                            textAlign: textAlign,
                             fontWeight: 'bold',
                             lineHeight: 1.4,
                             whiteSpace: 'pre-wrap',
@@ -57,7 +80,7 @@ const Preview: React.FC<PreviewProps> = ({ lyrics, fontFace, fontSize, fontColor
                             textShadow: '0 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.4)',
                             transition: 'all 0.3s ease'
                         }}
-                        className="drop-shadow-2xl"
+                        className="drop-shadow-2xl w-full"
                     >
                         {displayText}
                     </p>

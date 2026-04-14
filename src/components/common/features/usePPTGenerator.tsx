@@ -7,6 +7,8 @@ export const usePPTGenerator = () => {
   const [fontSize, setFontSize] = useState<number>(36);
   const [fontColor, setFontColor] = useState<string>('#FFFFFF');
   const [fontFace, setFontFace] = useState<string>('Arial');
+  const [textAlign, setTextAlign] = useState<'left' | 'center' | 'right'>('center');
+  const [verticalAlign, setVerticalAlign] = useState<'top' | 'middle' | 'bottom'>('middle');
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -56,11 +58,11 @@ export const usePPTGenerator = () => {
           // Add text with better visibility (shadow/outline)
           slide.addText(slideText, {
             x: '5%',
-            y: '30%',
+            y: '10%', // Giving more room for vertical alignment adjustment
             w: '90%',
-            h: '40%',
-            align: 'center',
-            valign: 'middle',
+            h: '80%',
+            align: textAlign,
+            valign: verticalAlign,
             fontSize: fontSize,
             color: fontColor.replace('#', ''),
             fontFace: fontFace,
@@ -91,6 +93,10 @@ export const usePPTGenerator = () => {
     setFontColor,
     fontFace,
     setFontFace,
+    textAlign,
+    setTextAlign,
+    verticalAlign,
+    setVerticalAlign,
     isGenerating,
     generatePPT,
     fileInputRef
