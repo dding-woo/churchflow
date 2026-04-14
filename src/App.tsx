@@ -23,6 +23,8 @@ const App: React.FC = () => {
     setTextAlign,
     verticalAlign,
     setVerticalAlign,
+    lineSpacing,
+    setLineSpacing,
     isGenerating,
     generatePPT,
     fileInputRef
@@ -54,6 +56,8 @@ const App: React.FC = () => {
               setTextAlign={setTextAlign}
               verticalAlign={verticalAlign}
               setVerticalAlign={setVerticalAlign}
+              lineSpacing={lineSpacing}
+              setLineSpacing={setLineSpacing}
               isGenerating={isGenerating}
               generatePPT={generatePPT}
               fileInputRef={fileInputRef}
@@ -65,6 +69,7 @@ const App: React.FC = () => {
               fontColor={fontColor}
               textAlign={textAlign}
               verticalAlign={verticalAlign}
+              lineSpacing={lineSpacing}
               bgImage={bgImage}
             />
 

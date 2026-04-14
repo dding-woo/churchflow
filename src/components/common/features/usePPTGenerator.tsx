@@ -9,6 +9,7 @@ export const usePPTGenerator = () => {
   const [fontFace, setFontFace] = useState<string>('Arial');
   const [textAlign, setTextAlign] = useState<'left' | 'center' | 'right'>('center');
   const [verticalAlign, setVerticalAlign] = useState<'top' | 'middle' | 'bottom'>('middle');
+  const [lineSpacing, setLineSpacing] = useState<number>(1.2);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -63,6 +64,7 @@ export const usePPTGenerator = () => {
             h: '80%',
             align: textAlign,
             valign: verticalAlign,
+            lineSpacingMultiple: lineSpacing,
             fontSize: fontSize,
             color: fontColor.replace('#', ''),
             fontFace: fontFace,
@@ -97,6 +99,8 @@ export const usePPTGenerator = () => {
     setTextAlign,
     verticalAlign,
     setVerticalAlign,
+    lineSpacing,
+    setLineSpacing,
     isGenerating,
     generatePPT,
     fileInputRef

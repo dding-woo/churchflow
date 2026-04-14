@@ -7,6 +7,7 @@ interface PreviewProps {
     fontColor: string;
     textAlign: 'left' | 'center' | 'right';
     verticalAlign: 'top' | 'middle' | 'bottom';
+    lineSpacing: number;
     bgImage: string | null;
 }
 
@@ -17,6 +18,7 @@ const Preview: React.FC<PreviewProps> = ({
     fontColor, 
     textAlign, 
     verticalAlign, 
+    lineSpacing,
     bgImage 
 }) => {
     // 첫 번째 문단(슬라이드)만 미리보기로 보여줌
@@ -74,7 +76,7 @@ const Preview: React.FC<PreviewProps> = ({
                             color: fontColor,
                             textAlign: textAlign,
                             fontWeight: 'bold',
-                            lineHeight: 1.4,
+                            lineHeight: lineSpacing,
                             whiteSpace: 'pre-wrap',
                             wordBreak: 'keep-all',
                             textShadow: '0 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.4)',

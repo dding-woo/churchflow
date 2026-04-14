@@ -17,6 +17,8 @@ interface StyleSettingsProps {
   setTextAlign: (value: 'left' | 'center' | 'right') => void;
   verticalAlign: 'top' | 'middle' | 'bottom';
   setVerticalAlign: (value: 'top' | 'middle' | 'bottom') => void;
+  lineSpacing: number;
+  setLineSpacing: (value: number) => void;
   isGenerating: boolean;
   generatePPT: () => Promise<void>;
   fileInputRef: RefObject<HTMLInputElement | null>;
@@ -35,6 +37,8 @@ const StyleSettings: React.FC<StyleSettingsProps> = ({
   setTextAlign,
   verticalAlign,
   setVerticalAlign,
+  lineSpacing,
+  setLineSpacing,
   isGenerating,
   generatePPT,
   fileInputRef
@@ -120,6 +124,25 @@ const StyleSettings: React.FC<StyleSettingsProps> = ({
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* 행간 조절 */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm font-bold text-slate-100">행간 조절</label>
+            <span className="text-primary-300 font-black font-mono">{lineSpacing.toFixed(1)}x</span>
+          </div>
+          <div className="bg-slate-950 p-4 rounded-xl border-2 border-slate-700 flex items-center gap-4">
+            <input
+              type="range"
+              min="1.0"
+              max="2.5"
+              step="0.1"
+              value={lineSpacing}
+              onChange={(e) => setLineSpacing(parseFloat(e.target.value))}
+              className="flex-1 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary-500"
+            />
           </div>
         </div>
 
