@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header: React.FC = () => (
-  <header className="mb-12 text-center">
+  <header className="mb-12">
     <h1 className="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-300 to-white">
       Lyrics to PPT
     </h1>

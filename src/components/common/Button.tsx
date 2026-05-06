@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({ generatePPT, isGenerating }) => {
                     </svg>
                     변환 중...
                 </span>
-            ) : 'PPT 생성 및 다운로드'}
+            ) : 'PPT 다운로드'}
         </button>
     )
 }

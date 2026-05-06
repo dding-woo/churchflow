@@ -12,7 +12,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     fileInputRef
 }) => (
     <div>
-        <label className="block text-sm font-bold mb-2 text-slate-100 italic">배경 이미지</label>
         <div
             onClick={() => fileInputRef.current?.click()}
             className="group relative h-40 w-full border-2 border-dashed border-slate-400 rounded-xl flex items-center justify-center cursor-pointer hover:border-white hover:bg-slate-700 transition-all overflow-hidden"
