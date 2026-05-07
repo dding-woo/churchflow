@@ -16,7 +16,7 @@ interface PreviewProps {
     letterSpacing: number;
     linesPerSlide: number;
     bgImage: string | null;
-    bgVideo: string | null;
+    // bgVideo: string | null;
     bgColor: string;
 }
 
@@ -36,7 +36,7 @@ const Preview: React.FC<PreviewProps> = ({
     letterSpacing,
     linesPerSlide,
     bgImage,
-    bgVideo,
+    // bgVideo,
     bgColor
 }) => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -129,7 +129,7 @@ const Preview: React.FC<PreviewProps> = ({
                 className="aspect-video w-full rounded-[2rem] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden relative border-4 border-slate-700/30 bg-black group ring-1 ring-white/5 active:scale-[0.99] transition-transform duration-300"
             >
                 {/* 배경 미디어 레이어 */}
-                {bgVideo ? (
+                {/* bgVideo ? (
                     <video
                         key={bgVideo}
                         src={bgVideo}
@@ -139,7 +139,7 @@ const Preview: React.FC<PreviewProps> = ({
                         playsInline
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                ) : bgImage ? (
+                ) : */ bgImage ? (
                     <img
                         key={bgImage} // Re-render when image changes for animation if needed
                         src={bgImage}
@@ -154,7 +154,7 @@ const Preview: React.FC<PreviewProps> = ({
                 )}
 
                 {/* 오버레이 (이미지 가독성 향상) */}
-                {(bgImage || bgVideo) && <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>}
+                {(bgImage /* || bgVideo */) && <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>}
 
                 {/* 제목 레이어 */}
                 {showTitle && title && (

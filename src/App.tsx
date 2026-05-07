@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Preview from './components/Preview';
 import Button from './components/common/Button';
 import LyricsModal from './components/LyricsModal';
+import FloatingMenu from './components/FloatingMenu';
 import { usePPTGenerator } from './components/common/features/usePPTGenerator';
 
 const App: React.FC = () => {
@@ -15,8 +16,8 @@ const App: React.FC = () => {
     setLyrics,
     bgImage,
     handleImageUpload,
-    bgVideo,
-    handleVideoUpload,
+    // bgVideo,
+    // handleVideoUpload,
     fontSize,
     setFontSize,
     fontColor,
@@ -82,8 +83,8 @@ const App: React.FC = () => {
               <StyleSettings
                 bgImage={bgImage}
                 handleImageUpload={handleImageUpload}
-                bgVideo={bgVideo}
-                handleVideoUpload={handleVideoUpload}
+                // bgVideo={bgVideo}
+                // handleVideoUpload={handleVideoUpload}
                 bgColor={bgColor}
                 setBgColor={setBgColor}
                 title={title}
@@ -135,7 +136,7 @@ const App: React.FC = () => {
                   letterSpacing={letterSpacing}
                   linesPerSlide={linesPerSlide}
                   bgImage={bgImage}
-                  bgVideo={bgVideo}
+                  // bgVideo={bgVideo}
                   bgColor={bgColor}
                 />
               </div>
@@ -159,6 +160,8 @@ const App: React.FC = () => {
         lyrics={lyrics} 
         setLyrics={setLyrics} 
       />
+
+      <FloatingMenu />
     </div>
   );
 }

@@ -9,7 +9,7 @@ export const usePPTGenerator = () => {
   const [titleColor, setTitleColor] = useState<string>('#AAAAAA');
   const [titleAlign, setTitleAlign] = useState<'left' | 'center' | 'right'>('left');
   const [bgImage, setBgImage] = useState<string | null>(null);
-  const [bgVideo, setBgVideo] = useState<string | null>(null);
+  // const [bgVideo, setBgVideo] = useState<string | null>(null);
   const [bgColor, setBgColor] = useState<string>('#000000');
   const [fontSize, setFontSize] = useState<number>(36);
   const [fontColor, setFontColor] = useState<string>('#FFFFFF');
@@ -30,14 +30,15 @@ export const usePPTGenerator = () => {
       reader.onload = (event) => {
         if (event.target?.result) {
           setBgImage(event.target.result as string);
-          setBgVideo(null); // 비디오 초기화
-          setBgVideoData(null); // 비디오 데이터 초기화
+          // setBgVideo(null); // 비디오 초기화
+          // setBgVideoData(null); // 비디오 데이터 초기화
         }
       };
       reader.readAsDataURL(file);
     }
   };
 
+  /*
   const handleVideoUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -54,11 +55,11 @@ export const usePPTGenerator = () => {
         }
       };
       reader.readAsDataURL(file);
-    }
   };
+  */
 
   // State for raw video data (base64)
-  const [bgVideoData, setBgVideoData] = useState<string | null>(null);
+  // const [bgVideoData, setBgVideoData] = useState<string | null>(null);
 
   const generatePPT = async () => {
     if (!lyrics.trim()) {
@@ -83,13 +84,15 @@ export const usePPTGenerator = () => {
           const slide = pres.addSlide();
 
           // 배경 설정
+          /*
           if (bgVideoData) {
             slide.addMedia({
               type: 'video',
               data: bgVideoData,
               x: 0, y: 0, w: '100%', h: '100%'
             });
-          } else if (bgImage) {
+          } else */
+          if (bgImage) {
             slide.background = { data: bgImage };
           } else {
             slide.background = { color: bgColor.replace('#', '') };
@@ -145,8 +148,8 @@ export const usePPTGenerator = () => {
     setLyrics,
     bgImage,
     handleImageUpload,
-    bgVideo,
-    handleVideoUpload,
+    // bgVideo,
+    // handleVideoUpload,
     fontSize,
     setFontSize,
     fontColor,

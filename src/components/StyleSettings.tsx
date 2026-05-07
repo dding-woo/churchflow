@@ -1,14 +1,14 @@
 import React, { ChangeEvent, RefObject } from 'react';
 import ImageUpload from './common/ImageUpload';
-import VideoUpload from './common/VideoUpload';
+// import VideoUpload from './common/VideoUpload';
 import FontFaceSelect from './common/FontFaceSelect';
 import FontSizeInput from './common/FontSizeInput';
 
 interface StyleSettingsProps {
   bgImage: string | null;
   handleImageUpload: (e: ChangeEvent<HTMLInputElement>) => void;
-  bgVideo: string | null;
-  handleVideoUpload: (e: ChangeEvent<HTMLInputElement>) => void;
+  // bgVideo: string | null;
+  // handleVideoUpload: (e: ChangeEvent<HTMLInputElement>) => void;
   bgColor: string;
   setBgColor: (value: string) => void;
   title: string;
@@ -43,8 +43,8 @@ interface StyleSettingsProps {
 const StyleSettings: React.FC<StyleSettingsProps> = ({
   bgImage,
   handleImageUpload,
-  bgVideo,
-  handleVideoUpload,
+  // bgVideo,
+  // handleVideoUpload,
   bgColor,
   setBgColor,
   title,
@@ -104,6 +104,7 @@ const StyleSettings: React.FC<StyleSettingsProps> = ({
               />
             </div>
             
+            {/* 
             <div className="space-y-2">
               <label className="block text-xs font-bold text-slate-200 uppercase tracking-widest">배경 동영상 (움직이는 배경)</label>
               <VideoUpload
@@ -111,6 +112,7 @@ const StyleSettings: React.FC<StyleSettingsProps> = ({
                 handleVideoUpload={handleVideoUpload}
               />
             </div>
+            */}
           </div>
           
           <div className="space-y-2">
