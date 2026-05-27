@@ -1,9 +1,53 @@
 import { useState, useRef, ChangeEvent } from 'react';
 import pptxgen from 'pptxgenjs';
 
+export interface SongData {
+  id: string;
+  title: string;
+  lyrics: string;
+}
+
 export const usePPTGenerator = () => {
-  const [lyrics, setLyrics] = useState<string>('');
-  const [title, setTitle] = useState<string>('');
+  const [songList, setSongList] = useState<SongData[]>([{ id: Date.now().toString(), title: '', lyrics: '' }]);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+
+  const lyrics = songList[activeIndex]?.lyrics || '';
+  const title = songList[activeIndex]?.title || '';
+
+  const setLyrics = (newLyrics: string) => {
+    const newList = [...songList];
+    if (newList[activeIndex]) {
+      newList[activeIndex].lyrics = newLyrics;
+      setSongList(newList);
+    }
+  };
+
+  const setTitle = (newTitle: string) => {
+    const newList = [...songList];
+    if (newList[activeIndex]) {
+      newList[activeIndex].title = newTitle;
+      setSongList(newList);
+    }
+  };
+
+  const addSong = (newTitle: string = '', newLyrics: string = '') => {
+    const newSong = { id: Date.now().toString() + Math.random().toString(), title: newTitle, lyrics: newLyrics };
+    setSongList([...songList, newSong]);
+    setActiveIndex(songList.length);
+  };
+
+  const removeSong = (index: number) => {
+    const newList = songList.filter((_, i) => i !== index);
+    if (newList.length === 0) {
+      newList.push({ id: Date.now().toString(), title: '', lyrics: '' });
+    }
+    setSongList(newList);
+    if (activeIndex >= newList.length) {
+      setActiveIndex(Math.max(0, newList.length - 1));
+    } else if (activeIndex === index) {
+      setActiveIndex(Math.max(0, index - 1));
+    }
+  };
   const [showTitle, setShowTitle] = useState<boolean>(false);
   const [titleFontSize, setTitleFontSize] = useState<number>(24);
   const [titleColor, setTitleColor] = useState<string>('#AAAAAA');
@@ -62,7 +106,8 @@ export const usePPTGenerator = () => {
   // const [bgVideoData, setBgVideoData] = useState<string | null>(null);
 
   const generatePPT = async () => {
-    if (!lyrics.trim()) {
+    const hasLyrics = songList.some(song => song.lyrics.trim());
+    if (!hasLyrics) {
       alert('가사를 입력해주세요.');
       return;
     }
@@ -72,66 +117,70 @@ export const usePPTGenerator = () => {
       const pres = new pptxgen();
       pres.layout = 'LAYOUT_WIDE';
 
-      // Split lyrics into paragraphs by double newline
-      const paragraphs = lyrics.split(/\n\s*\n/);
+      songList.forEach((song) => {
+        if (!song.lyrics.trim()) return;
 
-      paragraphs.forEach((paragraph) => {
-        const lines = paragraph.split('\n').map(line => line.trim()).filter(line => line !== '');
+        // Split lyrics into paragraphs by double newline
+        const paragraphs = song.lyrics.split(/\n\s*\n/);
 
-        // Groups of max linesPerSlide lines per slide
-        for (let i = 0; i < lines.length; i += linesPerSlide) {
-          const slideText = lines.slice(i, i + linesPerSlide).join('\n');
-          const slide = pres.addSlide();
+        paragraphs.forEach((paragraph) => {
+          const lines = paragraph.split('\n').map(line => line.trim()).filter(line => line !== '');
 
-          // 배경 설정
-          /*
-          if (bgVideoData) {
-            slide.addMedia({
-              type: 'video',
-              data: bgVideoData,
-              x: 0, y: 0, w: '100%', h: '100%'
-            });
-          } else */
-          if (bgImage) {
-            slide.background = { data: bgImage };
-          } else {
-            slide.background = { color: bgColor.replace('#', '') };
-          }
+          // Groups of max linesPerSlide lines per slide
+          for (let i = 0; i < lines.length; i += linesPerSlide) {
+            const slideText = lines.slice(i, i + linesPerSlide).join('\n');
+            const slide = pres.addSlide();
 
-          // Add title if enabled
-          if (showTitle && title) {
-            slide.addText(title, {
+            // 배경 설정
+            /*
+            if (bgVideoData) {
+              slide.addMedia({
+                type: 'video',
+                data: bgVideoData,
+                x: 0, y: 0, w: '100%', h: '100%'
+              });
+            } else */
+            if (bgImage) {
+              slide.background = { data: bgImage };
+            } else {
+              slide.background = { color: bgColor.replace('#', '') };
+            }
+
+            // Add title if enabled
+            if (showTitle && song.title) {
+              slide.addText(song.title, {
+                x: '5%',
+                y: '5%',
+                w: '90%',
+                h: '10%',
+                align: titleAlign,
+                valign: 'middle',
+                fontSize: titleFontSize,
+                color: titleColor.replace('#', ''),
+                fontFace: fontFace,
+                bold: true
+              });
+            }
+
+            // Add text with better visibility (shadow/outline)
+            slide.addText(slideText, {
               x: '5%',
-              y: '5%',
+              y: '10%', // Giving more room for vertical alignment adjustment
               w: '90%',
-              h: '10%',
-              align: titleAlign,
-              valign: 'middle',
-              fontSize: titleFontSize,
-              color: titleColor.replace('#', ''),
+              h: '80%',
+              align: textAlign,
+              valign: verticalAlign,
+              lineSpacingMultiple: lineSpacing,
+              charSpacing: letterSpacing,
+              fontSize: fontSize,
+              color: fontColor.replace('#', ''),
               fontFace: fontFace,
-              bold: true
+              bold: true,
+              breakLine: true,
+              shadow: { type: 'outer', color: '000000', blur: 3, offset: 2, opacity: 0.8 }
             });
           }
-
-          // Add text with better visibility (shadow/outline)
-          slide.addText(slideText, {
-            x: '5%',
-            y: '10%', // Giving more room for vertical alignment adjustment
-            w: '90%',
-            h: '80%',
-            align: textAlign,
-            valign: verticalAlign,
-            lineSpacingMultiple: lineSpacing,
-            charSpacing: letterSpacing,
-            fontSize: fontSize,
-            color: fontColor.replace('#', ''),
-            fontFace: fontFace,
-            bold: true,
-            breakLine: true,
-            shadow: { type: 'outer', color: '000000', blur: 3, offset: 2, opacity: 0.8 }
-          });
-        }
+        });
       });
 
       await pres.writeFile({ fileName: `lyrics_${new Date().getTime()}.pptx` });
@@ -180,6 +229,11 @@ export const usePPTGenerator = () => {
     setTitleAlign,
     isGenerating,
     generatePPT,
-    fileInputRef
+    fileInputRef,
+    songList,
+    activeIndex,
+    setActiveIndex,
+    addSong,
+    removeSong
   };
 };
